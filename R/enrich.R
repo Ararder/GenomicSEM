@@ -478,17 +478,18 @@ enrich <-function(s_covstruc, model = "",params,fix= "regressions",std.lv=FALSE,
             }else{bread_check<-.tryCatch.W.E(bread <- solve(t(S2.delt)%*%S2.W%*%S2.delt,tol=toler))}
             print("line 479")
             if(class(bread_check$value)[1] == "matrix"){
-              
+              print("481")
               lettuce <- S2.W%*%S2.delt
-              
+              print("483")
               #ohm-hat-theta-tilde is the corrected sampling covariance matrix of the model parameters
               Ohtt <- bread %*% t(lettuce)%*%V_Reorder%*%lettuce%*%bread  
-              
+              print("486")
               #the lettuce plus inner "meat" (V) of the sandwich adjusts the naive covariance matrix by using the correct sampling covariance matrix of the observed covariance matrix in the computation
               SE <- as.matrix(sqrt(diag(Ohtt)))
-              
+              print("489")
               ##replace any labels with the actual parameter name
-              for(e in 1:nrow(SE)){
+              return(list(SE, ModelQ_WLS))
+              for(e in 1:nrow(SE, ModelQ_WLS)){
                 for(w in 1:nrow(ModelQ_WLS)){
                   if(rownames(SE)[e] == ModelQ_WLS$label[w]){
                     rownames(SE)[e]<-paste(ModelQ_WLS$lhs[w], ModelQ_WLS$op[w], ModelQ_WLS$rhs[w], sep = "")
