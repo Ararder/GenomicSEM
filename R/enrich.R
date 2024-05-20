@@ -477,7 +477,8 @@ enrich <-function(s_covstruc, model = "",params,fix= "regressions",std.lv=FALSE,
               bread_check<-.tryCatch.W.E(bread <- solve(t(S2.delt)%*%S2.W%*%S2.delt))
             }else{bread_check<-.tryCatch.W.E(bread <- solve(t(S2.delt)%*%S2.W%*%S2.delt,tol=toler))}
             print("line 479")
-            # if(class(bread_check$value)[1] == "matrix"){
+            return(bread_check)
+            if(class(bread_check$value)[1] == "matrix"){
               print("481")
               lettuce <- S2.W%*%S2.delt
               print("483")
@@ -495,7 +496,7 @@ enrich <-function(s_covstruc, model = "",params,fix= "regressions",std.lv=FALSE,
                     rownames(SE)[e]<-paste(ModelQ_WLS$lhs[w], ModelQ_WLS$op[w], ModelQ_WLS$rhs[w], sep = "")
                   }
                 }
-              #}
+              }
               print("line 498")
               unstand<-data.frame(inspect(ModelPart_Results, "list")[,c(2:4,8,14)])
               unstand<-subset(unstand, unstand$free != 0)                    
