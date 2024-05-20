@@ -520,7 +520,8 @@ enrich <-function(s_covstruc, model = "",params,fix= "regressions",std.lv=FALSE,
               results$SE<-NULL
               results$error<-ifelse(class(part_warn$value) == "lavaan", 0, as.character(part_warn$value$message))[1]
               results$warning<-ifelse(class(part_warn$warning) == 'NULL', 0, as.character(part_warn$warning$message))[1]
-              Results_List<-vector(mode="list",length=nrow(results))
+              Results_List<-vector(mode="list",length=100)
+              print("Results_List should be created")!
               if(n == 1){
                 for(y in 1:nrow(results)){
                   Results_List[[y]]<-as.data.frame(matrix(NA,ncol=ncol(results),nrow=length(s_covstruc$S)))
