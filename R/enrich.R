@@ -95,7 +95,7 @@ enrich <-function(s_covstruc, model = "",params,fix= "regressions",std.lv=FALSE,
   ##run model that specifies the factor structure so that lavaan knows how to rearrange the V (i.e., sampling covariance) matrix
   #transform V_LD matrix into a weight matrix: 
   W <- solve(V_LD)
-  
+  print("line 100")
   ##run the model
   if(std.lv == FALSE){
     empty2<-.tryCatch.W.E(ReorderModel1 <- sem(Model1, sample.cov = S_LD, estimator = "DWLS", WLS.V = W, sample.nobs = 2,warn=FALSE, optim.dx.tol = +Inf,optim.force.converged=TRUE))
@@ -188,7 +188,7 @@ enrich <-function(s_covstruc, model = "",params,fix= "regressions",std.lv=FALSE,
         }
       }
       else {Model1c <- ""}
-      
+      print("line 200")
       Model2<-""
       for (p in 1:k) {
         linestart2 <- paste(label2, p, " =~ 1*", label, p, sep = "")
@@ -287,7 +287,7 @@ enrich <-function(s_covstruc, model = "",params,fix= "regressions",std.lv=FALSE,
           base_model$SE<-""
         }
       }
-      
+      print("line 300")
       if(nrow(base_model) > 0){
         base_model$free<-NULL
         colnames(base_model)<-colnames(base_results)
@@ -385,7 +385,7 @@ enrich <-function(s_covstruc, model = "",params,fix= "regressions",std.lv=FALSE,
     test1<-subset(test1, paste(test1$lhs, test1$op, test1$rhs, sep = "") %in% params)  
     
     print(paste0("Beginning estimation of enrichment for ", length(s_covstruc$S), " functional annotations."))
-    
+    print("line 388")
     #add in baseline annotation for selection variable that excludes flanking and continuous annots
     Select<-data.frame(c("Base",s_covstruc$Select$V1),c(1,s_covstruc$Select$V2))
     colnames(Select)<-c("Annot","Select")
@@ -512,7 +512,7 @@ enrich <-function(s_covstruc, model = "",params,fix= "regressions",std.lv=FALSE,
                 results$enrichment_se[y]<-(results$SE[y]/abs(test1$est[y]))/s_covstruc$Prop$Prop[n]
                 
               }
-              
+              print("line 515")
               #compute 1-trailed p-value subtracting null of 1 from enrichment estimate
               results$enrichment_p<-pnorm(((results$enrichment-1)/results$enrichment_se),lower.tail=FALSE)
               
