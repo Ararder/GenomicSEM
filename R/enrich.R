@@ -411,7 +411,7 @@ enrich <-function(s_covstruc, model = "",params,fix= "regressions",std.lv=FALSE,
           S_LD<-as.matrix((s_covstruc$S_Tau[[n]]))
           
         }
-        
+        print("line 414")
         ##remove variables not used in the model from S and V
         colnames(V_LD)<-V_Names
         rownames(V_LD)<-V_Names
@@ -427,7 +427,7 @@ enrich <-function(s_covstruc, model = "",params,fix= "regressions",std.lv=FALSE,
             w<-w+1
           }else{}
         }
-        
+        print("line 430")
         if(is.null(remove2) == FALSE){
           S_LD<-S_LD[-remove2,-remove2]
         }
@@ -460,7 +460,7 @@ enrich <-function(s_covstruc, model = "",params,fix= "regressions",std.lv=FALSE,
           V_Reorderb<-diag(z)
           diag(V_Reorderb)<-diag(V_Reorder)
           W_Reorder<-solve(V_Reorderb)
-          
+          print("line 463")
           part_warn<-.tryCatch.W.E(ModelPart_Results <- sem(ModelQ_WLS, sample.cov = S_LD, estimator = "DWLS", WLS.V = W_Reorder, sample.nobs = 2, optim.dx.tol = +Inf))
           
           part_warn$warning$message[1]<-ifelse(is.null(part_warn$warning$message), part_warn$warning$message[1]<-0, part_warn$warning$message[1])
@@ -476,7 +476,7 @@ enrich <-function(s_covstruc, model = "",params,fix= "regressions",std.lv=FALSE,
             if(is.null(toler)){
               bread_check<-.tryCatch.W.E(bread <- solve(t(S2.delt)%*%S2.W%*%S2.delt))
             }else{bread_check<-.tryCatch.W.E(bread <- solve(t(S2.delt)%*%S2.W%*%S2.delt,tol=toler))}
-            
+            print("line 479")
             if(class(bread_check$value)[1] == "matrix"){
               
               lettuce <- S2.W%*%S2.delt
@@ -495,7 +495,7 @@ enrich <-function(s_covstruc, model = "",params,fix= "regressions",std.lv=FALSE,
                   }
                 }
               }
-              
+              print("line 498")
               unstand<-data.frame(inspect(ModelPart_Results, "list")[,c(2:4,8,14)])
               unstand<-subset(unstand, unstand$free != 0)                    
               unstand$free<-NULL
@@ -507,7 +507,7 @@ enrich <-function(s_covstruc, model = "",params,fix= "regressions",std.lv=FALSE,
               for(y in 1:nrow(results)){
                 #calculate enrichment with null = 1 divided by proportional size of annotation
                 results$enrichment[y]<-(results$est[y]/test1$est[y])/s_covstruc$Prop$Prop[n]
-                
+                print("510")
                 #caculate enrichment SE
                 results$enrichment_se[y]<-(results$SE[y]/abs(test1$est[y]))/s_covstruc$Prop$Prop[n]
                 
